@@ -1,18 +1,20 @@
 package br.com.alex.imdbstudycase.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import br.com.alex.imdbstudycase.R
+import br.com.alex.imdbstudycase.core.presentation.BaseActivity
 
-class SplashActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+class SplashActivity : BaseActivity() {
 
+    override fun launchFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.splash_container, SplashFragment.newInstance())
+            .replace(R.id.base_container, SplashFragment.newInstance())
             .setReorderingAllowed(true)
             .addToBackStack("splash")
             .commit()
+    }
+
+    override fun configureToolbar() {
+        title = "Splash Screen"
     }
 }

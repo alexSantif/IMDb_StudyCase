@@ -37,7 +37,6 @@ class BestMoviesAdapter(
             Glide
                 .with(context)
                 .load(movie.image)
-                .centerCrop()
                 .placeholder(android.R.drawable.editbox_background)
                 .into(imageViewMovieBanner)
 

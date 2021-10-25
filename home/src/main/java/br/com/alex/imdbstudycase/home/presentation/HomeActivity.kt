@@ -1,18 +1,20 @@
 package br.com.alex.imdbstudycase.home.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.com.alex.imdbstudycase.core.presentation.BaseActivity
 import br.com.alex.imdbstudycase.home.R
 
-class HomeActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+class HomeActivity : BaseActivity() {
 
+    override fun launchFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.home_container, HomeFragment.newInstance())
+            .replace(R.id.base_container, HomeFragment.newInstance())
             .setReorderingAllowed(true)
             .addToBackStack("home")
             .commit()
+    }
+
+    override fun configureToolbar() {
+        title = getString(R.string.home_screen_name)
     }
 }
