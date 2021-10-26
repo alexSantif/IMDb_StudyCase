@@ -1,15 +1,17 @@
 package br.com.alex.imdbstudycase.home.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alex.imdbstudycase.home.R
 import br.com.alex.imdbstudycase.home.presentation.adapter.BestMoviesAdapter
 import br.com.alex.imdbstudycase.router.FeatureRouter
+import br.com.alex.imdbstudycase.router.actions.OpenFavoritesAction
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,6 +22,8 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModel()
 
     private lateinit var recyclerViewBestMovies: RecyclerView
+
+    private lateinit var buttonFavorites: Button
 
     private lateinit var bestMoviesAdapter: BestMoviesAdapter
 
@@ -38,7 +42,7 @@ class HomeFragment : Fragment() {
         homeViewModel.getMovies()
         homeViewModel.movies.observe(viewLifecycleOwner, { movies ->
             if (movies != null) {
-                bestMoviesAdapter = BestMoviesAdapter(requireContext(), movies.items)
+                bestMoviesAdapter = BestMoviesAdapter(requireActivity(), movies.items, featureRouter)
 
                 recyclerViewBestMovies.apply {
                     layoutManager = GridLayoutManager(requireContext(), 2)
@@ -46,10 +50,15 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+
+        buttonFavorites.setOnClickListener {
+            featureRouter.start(requireActivity(), OpenFavoritesAction)
+        }
     }
 
     private fun initViews(view: View) {
         recyclerViewBestMovies = view.findViewById(R.id.recyclerview_best_movies)
+        buttonFavorites = view.findViewById(R.id.button_favorites)
     }
 
     companion object {

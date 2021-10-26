@@ -2,4 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.alex.imdbstudycase.moviedetails">
 
+    <application>
+        <activity
+            android:name=".presentation.MovieDetailsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="br.com.alex.imdbstudycase.moviedetails.open" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
 </manifest>

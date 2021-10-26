@@ -1,6 +1,5 @@
 package br.com.alex.imdbstudycase.presentation
 
-import android.os.Bundle
 import br.com.alex.imdbstudycase.R
 import br.com.alex.imdbstudycase.core.presentation.BaseActivity
 

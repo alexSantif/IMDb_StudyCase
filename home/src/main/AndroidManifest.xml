@@ -10,11 +10,10 @@
             android:exported="false"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="br.com.alex.pokedex.home.open" />
+                <action android:name="br.com.alex.imdbstudycase.home.open" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
