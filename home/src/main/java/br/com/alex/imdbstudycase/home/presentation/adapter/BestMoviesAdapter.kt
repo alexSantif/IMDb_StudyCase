@@ -1,7 +1,6 @@
 package br.com.alex.imdbstudycase.home.presentation.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alex.imdbstudycase.home.R
-import br.com.alex.imdbstudycase.home.data.model.Movies
+import br.com.alex.imdbstudycase.home.data.model.Movie
 import br.com.alex.imdbstudycase.router.FeatureRouter
 import br.com.alex.imdbstudycase.router.actions.OpenMovieDetailsAction
 import com.bumptech.glide.Glide
 
 class BestMoviesAdapter(
     private val activity: Activity,
-    private val movies: List<Movies>,
+    private val movies: List<Movie>,
     private val featureRouter: FeatureRouter
 ) : RecyclerView.Adapter<BestMoviesAdapter.ViewHolder>() {
 
@@ -39,7 +38,7 @@ class BestMoviesAdapter(
         private val textViewMovieTitle: TextView = view.findViewById(R.id.textview_movie_title)
         private val containerMovieListItem: LinearLayout = view.findViewById(R.id.container_movie_list_item)
 
-        fun bind(movie: Movies, featureRouter: FeatureRouter, activity: Activity) {
+        fun bind(movie: Movie, featureRouter: FeatureRouter, activity: Activity) {
             Glide
                 .with(activity)
                 .load(movie.image)

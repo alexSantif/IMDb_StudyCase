@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alex.imdbstudycase.home.R
+import br.com.alex.imdbstudycase.home.databinding.FragmentHomeBinding
 import br.com.alex.imdbstudycase.home.presentation.adapter.BestMoviesAdapter
 import br.com.alex.imdbstudycase.router.FeatureRouter
 import br.com.alex.imdbstudycase.router.actions.OpenFavoritesAction
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,9 +24,7 @@ class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModel()
 
-    private lateinit var recyclerViewBestMovies: RecyclerView
-
-    private lateinit var buttonFavorites: Button
+    private lateinit var binding: FragmentHomeBinding
 
     private lateinit var bestMoviesAdapter: BestMoviesAdapter
 
@@ -36,29 +37,35 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initViews(view)
+        binding = FragmentHomeBinding.bind(view)
 
         homeViewModel.getMovies()
         homeViewModel.movies.observe(viewLifecycleOwner, { movies ->
             if (movies != null) {
-                bestMoviesAdapter = BestMoviesAdapter(requireActivity(), movies.items, featureRouter)
+                bestMoviesAdapter =
+                    BestMoviesAdapter(requireActivity(), movies.items, featureRouter)
 
-                recyclerViewBestMovies.apply {
+                binding.recyclerviewBestMovies.apply {
                     layoutManager = GridLayoutManager(requireContext(), 2)
                     adapter = bestMoviesAdapter
                 }
             }
         })
 
-        buttonFavorites.setOnClickListener {
+        binding.buttonFavorites.setOnClickListener {
             featureRouter.start(requireActivity(), OpenFavoritesAction)
         }
-    }
 
-    private fun initViews(view: View) {
-        recyclerViewBestMovies = view.findViewById(R.id.recyclerview_best_movies)
-        buttonFavorites = view.findViewById(R.id.button_favorites)
+        binding.searchViewHome.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+
+        })
     }
 
     companion object {
