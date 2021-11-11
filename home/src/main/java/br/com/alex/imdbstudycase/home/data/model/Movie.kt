@@ -6,6 +6,7 @@ data class Movie(
 
     @SerializedName("id") val id: String? = null,
     @SerializedName("rank") val rank: String? = null,
+    @SerializedName("rankUpDown") val rankUpDown: String? = null,
     @SerializedName("title") val title: String? = null,
     @SerializedName("fullTitle") val fullTitle: String? = null,
     @SerializedName("year") val year: String? = null,

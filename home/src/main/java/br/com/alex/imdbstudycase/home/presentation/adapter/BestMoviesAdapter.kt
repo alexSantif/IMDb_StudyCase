@@ -45,7 +45,7 @@ class BestMoviesAdapter(
                 .placeholder(android.R.drawable.editbox_background)
                 .into(imageViewMovieBanner)
 
-            textViewMovieTitle.text = movie.fullTitle
+            textViewMovieTitle.text = movie.title
 
             containerMovieListItem.setOnClickListener {
                 featureRouter.start(activity, OpenMovieDetailsAction)
