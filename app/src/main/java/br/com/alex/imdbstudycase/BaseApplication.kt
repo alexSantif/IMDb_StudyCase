@@ -6,6 +6,10 @@ import br.com.alex.imdbstudycase.home.di.HomeModule.homeApiModule
 import br.com.alex.imdbstudycase.home.di.HomeModule.homeUseCaseModule
 import br.com.alex.imdbstudycase.home.di.HomeModule.homeViewModelModule
 import br.com.alex.imdbstudycase.home.di.HomeModule.homeRepositoryModule
+import br.com.alex.imdbstudycase.moviedetails.di.MovieDetailsModule.movieDetailsApiModule
+import br.com.alex.imdbstudycase.moviedetails.di.MovieDetailsModule.movieDetailsRepositoryModule
+import br.com.alex.imdbstudycase.moviedetails.di.MovieDetailsModule.movieDetailsUseCaseModule
+import br.com.alex.imdbstudycase.moviedetails.di.MovieDetailsModule.movieDetailsViewModelModule
 import br.com.alex.imdbstudycase.router.di.RouterModule.routerModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -23,6 +27,10 @@ class BaseApplication : Application() {
                 homeUseCaseModule,
                 homeRepositoryModule,
                 homeApiModule,
+                movieDetailsViewModelModule,
+                movieDetailsUseCaseModule,
+                movieDetailsRepositoryModule,
+                movieDetailsApiModule,
                 networkModule
             )
         }

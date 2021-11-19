@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alex.imdbstudycase.home.R
 import br.com.alex.imdbstudycase.home.data.model.Movie
+import br.com.alex.imdbstudycase.moviedetails.data.model.MovieDetails
 import br.com.alex.imdbstudycase.router.FeatureRouter
 import br.com.alex.imdbstudycase.router.actions.OpenMovieDetailsAction
 import com.bumptech.glide.Glide
@@ -38,17 +39,19 @@ class BestMoviesAdapter(
         private val textViewMovieTitle: TextView = view.findViewById(R.id.textview_movie_title)
         private val containerMovieListItem: LinearLayout = view.findViewById(R.id.container_movie_list_item)
 
-        fun bind(movie: Movie, featureRouter: FeatureRouter, activity: Activity) {
+        fun bind(movieDetails: Movie, featureRouter: FeatureRouter, activity: Activity) {
             Glide
                 .with(activity)
-                .load(movie.image)
+                .load(movieDetails.image)
                 .placeholder(android.R.drawable.editbox_background)
                 .into(imageViewMovieBanner)
 
-            textViewMovieTitle.text = movie.title
+            textViewMovieTitle.text = movieDetails.title
 
             containerMovieListItem.setOnClickListener {
-                featureRouter.start(activity, OpenMovieDetailsAction)
+                featureRouter.start(activity, OpenMovieDetailsAction) {
+                    this.putString("movie_id", movieDetails.id)
+                }
             }
         }
     }

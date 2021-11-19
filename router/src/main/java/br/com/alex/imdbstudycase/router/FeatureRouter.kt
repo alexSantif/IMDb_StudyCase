@@ -38,6 +38,7 @@ internal class StandardFeatureRouter(private val actionRule: ActionRule) : Featu
         flags: IntArray? = null,
         args: IntentParams = {}
     ) = Intent(action.name)
+        .putExtras(Bundle().apply(args))
         .setPackage(context.packageName)
         .apply {
             flags?.forEach { addFlags(it) }
