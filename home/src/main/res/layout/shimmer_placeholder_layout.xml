@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginTop="@dimen/base_grid"
+    android:layout_marginBottom="@dimen/base_grid"
     android:orientation="vertical">
 
     <ImageView
@@ -11,13 +11,13 @@
         android:layout_width="120dp"
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
-        android:background="@color/shimmer_placeholder" />
+        android:background="@drawable/shimmer_placeholder" />
 
     <TextView
         android:id="@+id/shimmer_title"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:background="@color/shimmer_placeholder" />
+        android:layout_marginTop="@dimen/base_grid"
+        android:background="@drawable/shimmer_placeholder" />
 </LinearLayout>

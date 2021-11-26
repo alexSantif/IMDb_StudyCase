@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="zero_grid">0dp</dimen>
+    <dimen name="half_grid">4dp</dimen>
+    <dimen name="base_grid">8dp</dimen>
+    <dimen name="double_grid">16dp</dimen>
+    <dimen name="triple_grid">24dp</dimen>
+
+    <dimen name="text_size_H1">16sp</dimen>
+</resources>

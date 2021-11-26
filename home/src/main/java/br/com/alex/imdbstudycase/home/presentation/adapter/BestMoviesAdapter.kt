@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alex.imdbstudycase.home.R
 import br.com.alex.imdbstudycase.home.data.model.Movie
-import br.com.alex.imdbstudycase.moviedetails.data.model.MovieDetails
 import br.com.alex.imdbstudycase.router.FeatureRouter
 import br.com.alex.imdbstudycase.router.actions.OpenMovieDetailsAction
 import com.bumptech.glide.Glide
@@ -43,7 +42,7 @@ class BestMoviesAdapter(
             Glide
                 .with(activity)
                 .load(movieDetails.image)
-                .placeholder(R.color.shimmer_placeholder)
+                .placeholder(R.color.shimmer_placeholder_color)
                 .into(imageViewMovieBanner)
 
             textViewMovieTitle.text = movieDetails.title

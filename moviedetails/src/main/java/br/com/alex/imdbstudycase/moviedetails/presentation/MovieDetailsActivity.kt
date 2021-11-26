@@ -1,5 +1,6 @@
 package br.com.alex.imdbstudycase.moviedetails.presentation
 
+import android.view.MenuItem
 import br.com.alex.imdbstudycase.core.presentation.BaseActivity
 import br.com.alex.imdbstudycase.moviedetails.R
 
@@ -14,6 +15,23 @@ class MovieDetailsActivity : BaseActivity() {
     }
 
     override fun configureToolbar() {
-        title = "Detalhes"
+        title = getString(R.string.movie_details_screen_name)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

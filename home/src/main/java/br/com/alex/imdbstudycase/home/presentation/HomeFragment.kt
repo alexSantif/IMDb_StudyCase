@@ -72,6 +72,10 @@ class HomeFragment : Fragment() {
             }
 
         })
+
+        binding.searchViewHome.setOnClickListener {
+            binding.searchViewHome.setIconified(false)
+        }
     }
 
     companion object {
