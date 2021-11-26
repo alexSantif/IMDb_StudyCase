@@ -43,7 +43,7 @@ class BestMoviesAdapter(
             Glide
                 .with(activity)
                 .load(movieDetails.image)
-                .placeholder(android.R.drawable.editbox_background)
+                .placeholder(R.color.shimmer_placeholder)
                 .into(imageViewMovieBanner)
 
             textViewMovieTitle.text = movieDetails.title
