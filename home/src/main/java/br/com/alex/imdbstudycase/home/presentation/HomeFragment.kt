@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.alex.imdbstudycase.home.R
 import br.com.alex.imdbstudycase.home.databinding.FragmentHomeBinding
@@ -41,6 +43,10 @@ class HomeFragment : Fragment() {
 
         binding.recyclerviewBestMovies.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
+            addItemDecoration(DividerItemDecoration(requireContext(),
+                DividerItemDecoration.HORIZONTAL))
+            addItemDecoration(DividerItemDecoration(requireContext(),
+                DividerItemDecoration.VERTICAL))
         }
 
         binding.recyclerviewBestMovies.setItemViewType { _, _ ->
@@ -74,11 +80,14 @@ class HomeFragment : Fragment() {
         })
 
         binding.searchViewHome.setOnClickListener {
-            binding.searchViewHome.setIconified(false)
+            binding.searchViewHome.isIconified = false
         }
     }
 
     companion object {
+
+        const val MOVIE_ID_KEY = "movie_id"
+        const val MOVIE_IMAGE_KEY = "movie_image"
 
         fun newInstance() = HomeFragment()
     }

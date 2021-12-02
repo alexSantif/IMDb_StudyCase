@@ -6,7 +6,7 @@ import br.com.alex.imdbstudycase.moviedetails.data.repository.MovieDetailsReposi
 
 class MovieDetailsUseCase(private val repository: MovieDetailsRepository) {
 
-    suspend fun getMovieDetails(): AppResult<MovieDetails> {
-        return repository.getMovieDetails()
+    suspend fun getMovieDetails(movieId: String?): AppResult<MovieDetails> {
+        return repository.getMovieDetails(movieId)
     }
 }

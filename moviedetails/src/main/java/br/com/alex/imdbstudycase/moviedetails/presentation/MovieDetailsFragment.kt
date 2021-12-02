@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import br.com.alex.imdbstudycase.moviedetails.R
 import br.com.alex.imdbstudycase.moviedetails.databinding.FragmentMovieDetailsBinding
-import br.com.alex.imdbstudycase.router.FeatureRouter
-import org.koin.android.ext.android.inject
+import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsFragment : Fragment() {
@@ -31,12 +30,24 @@ class MovieDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMovieDetailsBinding.bind(view)
 
-        val movieId = requireActivity().intent.getStringExtra("movie_id")
+        val movieId = requireActivity().intent.getStringExtra(MOVIE_ID_KEY)
+        val movieImage = requireActivity().intent.getStringExtra(MOVIE_IMAGE_KEY)
 
-        movieDetailsViewModel.getMovieDetails()
+        movieDetailsViewModel.getMovieDetails(movieId)
         movieDetailsViewModel.movieDetails.observe(viewLifecycleOwner, { movieDetails ->
             if (movieDetails != null) {
                 binding.textviewMovieTitle.text = movieDetails.title
+                binding.textviewBody.text = movieDetails.plot
+                binding.textviewDescriptionTitle.text =
+                    getString(R.string.movie_details_title, movieDetails.title)
+                binding.textviewDescriptionYear.text = movieDetails.year
+                binding.textviewDescriptionDirector.text = movieDetails.directors
+
+                Glide
+                    .with(requireActivity())
+                    .load(movieImage)
+                    .placeholder(R.color.shimmer_placeholder_color)
+                    .into(binding.imageviewMovieDetails)
             }
         })
 
@@ -56,7 +67,7 @@ class MovieDetailsFragment : Fragment() {
             }
         }
 
-        binding.linearlayoutCastHeader.setOnClickListener {
+        binding.linearlayoutFullCastHeader.setOnClickListener {
             if (binding.cardBodyCast.visibility == View.VISIBLE) {
                 TransitionManager.beginDelayedTransition(
                     binding.cardviewDetailsCast,
@@ -74,6 +85,9 @@ class MovieDetailsFragment : Fragment() {
     }
 
     companion object {
+
+        const val MOVIE_ID_KEY = "movie_id"
+        const val MOVIE_IMAGE_KEY = "movie_image"
 
         fun newInstance() = MovieDetailsFragment()
     }

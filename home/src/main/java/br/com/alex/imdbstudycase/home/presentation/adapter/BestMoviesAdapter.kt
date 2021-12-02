@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alex.imdbstudycase.home.R
 import br.com.alex.imdbstudycase.home.data.model.Movie
+import br.com.alex.imdbstudycase.home.presentation.HomeFragment.Companion.MOVIE_ID_KEY
+import br.com.alex.imdbstudycase.home.presentation.HomeFragment.Companion.MOVIE_IMAGE_KEY
 import br.com.alex.imdbstudycase.router.FeatureRouter
 import br.com.alex.imdbstudycase.router.actions.OpenMovieDetailsAction
 import com.bumptech.glide.Glide
@@ -49,7 +51,8 @@ class BestMoviesAdapter(
 
             containerMovieListItem.setOnClickListener {
                 featureRouter.start(activity, OpenMovieDetailsAction) {
-                    this.putString("movie_id", movieDetails.id)
+                    this.putString(MOVIE_ID_KEY, movieDetails.id)
+                    this.putString(MOVIE_IMAGE_KEY, movieDetails.image)
                 }
             }
         }

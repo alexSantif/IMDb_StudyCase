@@ -1,4 +1,5 @@
 <resources>
 
     <string name="movie_details_screen_name">Detalhes do filme</string>
+    <string name="movie_details_title">Título: %s</string>
 </resources>

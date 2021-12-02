@@ -5,5 +5,5 @@ import br.com.alex.imdbstudycase.moviedetails.data.model.MovieDetails
 
 interface MovieDetailsRepository {
 
-    suspend fun getMovieDetails(): AppResult<MovieDetails>
+    suspend fun getMovieDetails(movieId: String?): AppResult<MovieDetails>
 }

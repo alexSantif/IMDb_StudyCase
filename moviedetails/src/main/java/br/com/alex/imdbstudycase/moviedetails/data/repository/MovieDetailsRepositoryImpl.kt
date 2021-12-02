@@ -8,9 +8,9 @@ import br.com.alex.imdbstudycase.moviedetails.data.network.MovieDetailsApi
 
 class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi) : MovieDetailsRepository {
 
-    override suspend fun getMovieDetails(): AppResult<MovieDetails> {
+    override suspend fun getMovieDetails(movieId: String?): AppResult<MovieDetails> {
         return try {
-            val response = api.getMovieDetails()
+            val response = api.getMovieDetails(movieId)
             if (response.isSuccessful) {
                 handleSuccess(response)
             } else {

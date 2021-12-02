@@ -15,9 +15,9 @@ class MovieDetailsViewModel(private val useCase: MovieDetailsUseCase) : ViewMode
 
     private val showError = SingleLiveEvent<String>()
 
-    fun getMovieDetails() {
+    fun getMovieDetails(movieId: String?) {
         viewModelScope.launch {
-            when (val moviesResult = useCase.getMovieDetails()) {
+            when (val moviesResult = useCase.getMovieDetails(movieId)) {
                 is AppResult.Success -> {
                     movieDetails.value = moviesResult.successData
                     showError.value = null
