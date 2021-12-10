@@ -1,10 +1,26 @@
 package br.com.alex.imdbstudycase.moviedetails.presentation
 
+import android.os.Bundle
 import android.view.MenuItem
 import br.com.alex.imdbstudycase.core.presentation.BaseActivity
 import br.com.alex.imdbstudycase.moviedetails.R
+import br.com.alex.imdbstudycase.moviedetails.di.MovieDetailsModule
+import org.koin.core.context.loadKoinModules
 
 class MovieDetailsActivity : BaseActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val modules = listOf(
+            MovieDetailsModule.movieDetailsViewModelModule,
+            MovieDetailsModule.movieDetailsUseCaseModule,
+            MovieDetailsModule.movieDetailsRepositoryModule,
+            MovieDetailsModule.movieDetailsApiModule
+        )
+
+        loadKoinModules(modules)
+    }
 
     override fun launchFragment() {
         supportFragmentManager.beginTransaction()
@@ -18,11 +34,6 @@ class MovieDetailsActivity : BaseActivity() {
         title = getString(R.string.movie_details_screen_name)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

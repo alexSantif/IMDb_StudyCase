@@ -23,13 +23,14 @@
     <com.todkars.shimmer.ShimmerRecyclerView
         android:id="@+id/recyclerview_best_movies"
         android:layout_width="@dimen/zero_grid"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/base_grid"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_view_home"
-        app:shimmer_recycler_layout="@layout/shimmer_placeholder_layout"
-        app:shimmer_recycler_item_count="10" />
+        app:shimmer_recycler_item_count="10"
+        app:shimmer_recycler_layout="@layout/shimmer_placeholder_layout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_favorites"

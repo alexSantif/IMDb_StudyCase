@@ -17,4 +17,9 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun launchFragment()
 
     abstract fun configureToolbar()
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }

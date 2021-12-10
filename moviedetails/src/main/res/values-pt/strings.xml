@@ -1,5 +1,9 @@
 <resources>
 
     <string name="movie_details_screen_name">Detalhes do filme</string>
+    <string name="movie_details_data_card_title">Informações</string>
+    <string name="movie_details_cast_card_title">Elenco</string>
     <string name="movie_details_title">Título: %s</string>
+    <string name="movie_details_year">Ano: %s</string>
+    <string name="movie_details_director">Diretor: %s</string>
 </resources>

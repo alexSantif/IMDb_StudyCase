@@ -1,34 +1,27 @@
 package br.com.alex.imdbstudycase.home.presentation
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.alex.imdbstudycase.home.R
 import br.com.alex.imdbstudycase.home.databinding.FragmentHomeBinding
-import br.com.alex.imdbstudycase.home.presentation.adapter.BestMoviesAdapter
-import br.com.alex.imdbstudycase.router.FeatureRouter
-import br.com.alex.imdbstudycase.router.actions.OpenFavoritesAction
-import org.koin.android.ext.android.inject
+import br.com.alex.imdbstudycase.home.presentation.adapter.HomeMoviesAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
-import com.todkars.shimmer.ShimmerRecyclerView
 
 class HomeFragment : Fragment() {
 
-    private val featureRouter: FeatureRouter by inject()
+//    private val featureRouter: FeatureRouter by inject()
 
     private val homeViewModel: HomeViewModel by viewModel()
 
     private lateinit var binding: FragmentHomeBinding
 
-    private lateinit var bestMoviesAdapter: BestMoviesAdapter
+    private lateinit var homeMoviesAdapter: HomeMoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,20 +49,31 @@ class HomeFragment : Fragment() {
 
         homeViewModel.getMovies()
         homeViewModel.movies.observe(viewLifecycleOwner, { movies ->
-            if (movies != null) {
-                bestMoviesAdapter =
-                    BestMoviesAdapter(requireActivity(), movies.items, featureRouter)
-                binding.recyclerviewBestMovies.adapter = bestMoviesAdapter
+            movies?.items?.let { items ->
+                homeMoviesAdapter =
+                    HomeMoviesAdapter(requireActivity(), items, homeViewModel)
+                binding.recyclerviewBestMovies.adapter = homeMoviesAdapter
                 binding.recyclerviewBestMovies.hideShimmer()
             }
         })
 
         binding.buttonFavorites.setOnClickListener {
-            featureRouter.start(requireActivity(), OpenFavoritesAction)
+//            featureRouter.start(requireActivity(), OpenFavoritesAction)
         }
 
         binding.searchViewHome.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
+            override fun onQueryTextSubmit(text: String?): Boolean {
+                binding.searchViewHome.clearFocus()
+                binding.recyclerviewBestMovies.showShimmer()
+                homeViewModel.getSearchMovie(text)
+                homeViewModel.searchMovie.observe(viewLifecycleOwner, { movie ->
+                    movie?.results?.let { movies ->
+                        homeMoviesAdapter =
+                            HomeMoviesAdapter(requireActivity(), movies, homeViewModel)
+                        binding.recyclerviewBestMovies.adapter = homeMoviesAdapter
+                        binding.recyclerviewBestMovies.hideShimmer()
+                    }
+                })
                 return false
             }
 

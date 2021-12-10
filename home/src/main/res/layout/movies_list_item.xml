@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_movie_list_item"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/base_grid"
     android:layout_marginBottom="@dimen/base_grid"
     android:orientation="vertical">
@@ -22,9 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="@dimen/base_grid"
+        android:layout_marginStart="@dimen/double_grid"
         android:layout_marginTop="@dimen/base_grid"
-        android:layout_marginEnd="@dimen/base_grid"
+        android:layout_marginEnd="@dimen/double_grid"
+        android:fontFamily="@font/poppins"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_H1"
         tools:text="Titulo filme" />

@@ -35,7 +35,6 @@ dependencies {
 
     implementation project(':router')
     implementation project(':home')
-    implementation project(':moviedetails')
     implementation project(':core')
 
     implementation 'androidx.core:core-ktx:1.6.0'
