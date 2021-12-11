@@ -4,39 +4,40 @@ import br.com.alex.imdbstudycase.home.data.network.HomeApi
 import br.com.alex.imdbstudycase.home.data.repository.HomeRepository
 import br.com.alex.imdbstudycase.home.data.repository.HomeRepositoryImpl
 import br.com.alex.imdbstudycase.home.domain.HomeUseCase
+import br.com.alex.imdbstudycase.home.navigation.HomeActivityDirectionImpl
 import br.com.alex.imdbstudycase.home.presentation.HomeViewModel
+import br.com.alex.imdbstudycase.router.direction.screen.HomeActivityDirection
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
 object HomeModule {
 
-    val homeViewModelModule = module {
-        viewModel { HomeViewModel(get()) }
-    }
+    val instance = module {
 
-    val homeUseCaseModule = module {
-
-        fun providesUseCase(repository: HomeRepository): HomeUseCase {
-            return HomeUseCase(repository)
+        factory<HomeActivityDirection> { (params: HomeActivityDirection.Params) ->
+            HomeActivityDirectionImpl(
+                context = androidContext(),
+                params = params
+            )
         }
-        single { providesUseCase(get()) }
-    }
 
-    val homeRepositoryModule = module {
-
-        fun providesRepository(api: HomeApi): HomeRepository {
-            return HomeRepositoryImpl(api)
+        viewModel {
+            HomeViewModel(get())
         }
-        single { providesRepository(get()) }
-    }
 
-    val homeApiModule = module {
+        factory {
+            HomeUseCase(get())
+        }
+
+        factory<HomeRepository> {
+            HomeRepositoryImpl(get())
+        }
 
         fun providesApi(retrofit: Retrofit): HomeApi {
             return retrofit.create(HomeApi::class.java)
         }
-        single { providesApi(get()) }
-
+        factory { providesApi(get()) }
     }
 }

@@ -5,14 +5,7 @@
     <application>
         <activity
             android:name=".presentation.MovieDetailsActivity"
-            android:exported="false"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="br.com.alex.imdbstudycase.moviedetails.open" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:exported="true"
+            android:screenOrientation="portrait" />
     </application>
-
 </manifest>

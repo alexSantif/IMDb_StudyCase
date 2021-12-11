@@ -10,9 +10,11 @@ import java.util.concurrent.TimeUnit
 
 object CoreModule {
 
-    val networkModule = module {
-        val connectTimeout : Long = 40
-        val readTimeout : Long  = 40
+    private const val TIMEOUT = 40L
+
+    val instance = module {
+        val connectTimeout : Long = TIMEOUT
+        val readTimeout : Long  = TIMEOUT
 
         fun provideHttpClient(): OkHttpClient {
             val okHttpClientBuilder = OkHttpClient.Builder()

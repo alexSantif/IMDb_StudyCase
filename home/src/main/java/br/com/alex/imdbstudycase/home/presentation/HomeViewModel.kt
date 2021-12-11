@@ -11,11 +11,13 @@ import br.com.alex.imdbstudycase.home.data.model.SearchResponse
 import br.com.alex.imdbstudycase.home.domain.HomeUseCase
 import br.com.alex.imdbstudycase.home.navigation.HomeDirections
 import br.com.alex.imdbstudycase.router.NavigableViewModel
+import br.com.alex.imdbstudycase.router.direction.NavDirection
+import br.com.alex.imdbstudycase.router.direction.screen.HomeActivityDirection
 import br.com.alex.imdbstudycase.router.model.NavigationCommand
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val useCase: HomeUseCase) : ViewModel(),
-    NavigableViewModel<HomeDirections> {
+class HomeViewModel(private val useCase: HomeUseCase) :
+    ViewModel(), NavigableViewModel<NavDirection> {
 
     override val router = MutableLiveEvent<NavigationCommand>()
 
@@ -40,7 +42,7 @@ class HomeViewModel(private val useCase: HomeUseCase) : ViewModel(),
     }
 
     fun navigateTo() {
-        router.navigateTo(HomeDirections.FeatureActivity("1234"))
+        router.navigateTo(HomeDirections.HomeActivity("1234"))
     }
 
     fun getSearchMovie(text: String?) {
