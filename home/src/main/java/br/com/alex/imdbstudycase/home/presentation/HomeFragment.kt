@@ -11,13 +11,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import br.com.alex.imdbstudycase.home.R
 import br.com.alex.imdbstudycase.home.databinding.FragmentHomeBinding
 import br.com.alex.imdbstudycase.home.presentation.adapter.HomeMoviesAdapter
+import br.com.alex.imdbstudycase.router.FeatureRouter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {
 
-//    private val featureRouter: FeatureRouter by inject()
-
     private val homeViewModel: HomeViewModel by viewModel()
+
+    private val featureRouter: FeatureRouter by inject()
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -51,7 +53,7 @@ class HomeFragment : Fragment() {
         homeViewModel.movies.observe(viewLifecycleOwner, { movies ->
             movies?.items?.let { items ->
                 homeMoviesAdapter =
-                    HomeMoviesAdapter(requireActivity(), items, homeViewModel)
+                    HomeMoviesAdapter(requireActivity(), items, featureRouter)
                 binding.recyclerviewBestMovies.adapter = homeMoviesAdapter
                 binding.recyclerviewBestMovies.hideShimmer()
             }
@@ -69,7 +71,7 @@ class HomeFragment : Fragment() {
                 homeViewModel.searchMovie.observe(viewLifecycleOwner, { movie ->
                     movie?.results?.let { movies ->
                         homeMoviesAdapter =
-                            HomeMoviesAdapter(requireActivity(), movies, homeViewModel)
+                            HomeMoviesAdapter(requireActivity(), movies, featureRouter)
                         binding.recyclerviewBestMovies.adapter = homeMoviesAdapter
                         binding.recyclerviewBestMovies.hideShimmer()
                     }

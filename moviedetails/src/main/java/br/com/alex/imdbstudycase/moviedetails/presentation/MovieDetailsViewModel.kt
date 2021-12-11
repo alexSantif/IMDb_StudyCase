@@ -23,7 +23,8 @@ class MovieDetailsViewModel(private val useCase: MovieDetailsUseCase) : ViewMode
                     showError.value = null
                 }
                 is AppResult.Error -> showError.value = moviesResult.exception.message
-                else -> {}
+                else -> {
+                }
             }
         }
     }

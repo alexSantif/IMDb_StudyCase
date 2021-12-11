@@ -8,19 +8,19 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import br.com.alex.imdbstudycase.core.navigation.MutableLiveEvent
 import br.com.alex.imdbstudycase.home.R
 import br.com.alex.imdbstudycase.home.data.model.Movie
 import br.com.alex.imdbstudycase.home.data.model.SearchData
-import br.com.alex.imdbstudycase.home.navigation.HomeDirections
-import br.com.alex.imdbstudycase.home.presentation.HomeViewModel
-import br.com.alex.imdbstudycase.router.model.NavigationCommand
+import br.com.alex.imdbstudycase.home.presentation.HomeFragment.Companion.MOVIE_ID_KEY
+import br.com.alex.imdbstudycase.home.presentation.HomeFragment.Companion.MOVIE_IMAGE_KEY
+import br.com.alex.imdbstudycase.router.FeatureRouter
+import br.com.alex.imdbstudycase.router.actions.OpenMovieDetailsAction
 import com.bumptech.glide.Glide
 
 class HomeMoviesAdapter(
     private val activity: Activity,
     private val movies: List<Any>,
-    private val homeViewModel: HomeViewModel
+    private val featureRouter: FeatureRouter
 ) : RecyclerView.Adapter<HomeMoviesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -31,7 +31,7 @@ class HomeMoviesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(movies[position], homeViewModel, activity)
+        holder.bind(movies[position])
     }
 
     override fun getItemCount(): Int = movies.size
@@ -42,11 +42,7 @@ class HomeMoviesAdapter(
         private val containerMovieListItem: LinearLayout =
             view.findViewById(R.id.container_movie_list_item)
 
-        fun bind(
-            movieDetails: Any,
-            homeViewModel: HomeViewModel,
-            activity: Activity
-        ) {
+        fun bind(movieDetails: Any) {
             if (movieDetails is Movie) {
                 val movie = movieDetails as Movie
                 Glide
@@ -58,11 +54,7 @@ class HomeMoviesAdapter(
                 textViewMovieTitle.text = movie.title
 
                 containerMovieListItem.setOnClickListener {
-//                    featureRouter.start(activity, OpenMovieDetailsAction) {
-//                        this.putString(MOVIE_ID_KEY, movie.id)
-//                        this.putString(MOVIE_IMAGE_KEY, movie.image)
-//                    }
-                    homeViewModel.navigateTo()
+                    navigateToMovieDetails(movie)
                 }
             } else if (movieDetails is SearchData) {
                 val movie = movieDetails as SearchData
@@ -75,11 +67,21 @@ class HomeMoviesAdapter(
                 textViewMovieTitle.text = movie.title
 
                 containerMovieListItem.setOnClickListener {
-//                    featureRouter.start(activity, OpenMovieDetailsAction) {
-//                        this.putString(MOVIE_ID_KEY, movie.id)
-//                        this.putString(MOVIE_IMAGE_KEY, movie.image)
-//                    }
-                    homeViewModel.navigateTo()
+                    navigateToMovieDetails(movie)
+                }
+            }
+        }
+
+        private fun navigateToMovieDetails(movie: Any) {
+            if (movie is Movie) {
+                featureRouter.start(activity, OpenMovieDetailsAction) {
+                    putString(MOVIE_ID_KEY, movie.id)
+                    putString(MOVIE_IMAGE_KEY, movie.image)
+                }
+            } else if (movie is SearchData) {
+                featureRouter.start(activity, OpenMovieDetailsAction) {
+                    putString(MOVIE_ID_KEY, movie.id)
+                    putString(MOVIE_IMAGE_KEY, movie.image)
                 }
             }
         }

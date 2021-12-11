@@ -11,32 +11,23 @@ import retrofit2.Retrofit
 
 object MovieDetailsModule {
 
-    val movieDetailsViewModelModule = module {
-        viewModel { MovieDetailsViewModel(get()) }
-    }
+    val instance = module {
 
-    val movieDetailsUseCaseModule = module {
-
-        fun providesUseCase(repository: MovieDetailsRepository): MovieDetailsUseCase {
-            return MovieDetailsUseCase(repository)
+        viewModel {
+            MovieDetailsViewModel(get())
         }
-        single { providesUseCase(get()) }
-    }
 
-    val movieDetailsRepositoryModule = module {
-
-        fun providesRepository(api: MovieDetailsApi): MovieDetailsRepository {
-            return MovieDetailsRepositoryImpl(api)
+        factory {
+            MovieDetailsUseCase(get())
         }
-        single { providesRepository(get()) }
-    }
 
-    val movieDetailsApiModule = module {
+        factory<MovieDetailsRepository> {
+            MovieDetailsRepositoryImpl(get())
+        }
 
         fun providesApi(retrofit: Retrofit): MovieDetailsApi {
             return retrofit.create(MovieDetailsApi::class.java)
         }
-        single { providesApi(get()) }
-
+        factory { providesApi(get()) }
     }
 }
