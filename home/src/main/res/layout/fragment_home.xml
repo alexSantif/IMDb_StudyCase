@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.todkars.shimmer.ShimmerRecyclerView
-        android:id="@+id/recyclerview_best_movies"
+        android:id="@+id/recyclerview_home_movies"
         android:layout_width="@dimen/zero_grid"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/base_grid"

@@ -13,7 +13,6 @@ import br.com.alex.imdbstudycase.home.data.model.MovieData
 import br.com.alex.imdbstudycase.home.data.model.MovieModelData
 import br.com.alex.imdbstudycase.home.data.model.SearchData
 import br.com.alex.imdbstudycase.home.presentation.HomeFragment.Companion.MOVIE_ID_KEY
-import br.com.alex.imdbstudycase.home.presentation.HomeFragment.Companion.MOVIE_IMAGE_KEY
 import br.com.alex.imdbstudycase.router.FeatureRouter
 import br.com.alex.imdbstudycase.router.actions.OpenMovieDetailsAction
 import com.bumptech.glide.Glide
@@ -60,7 +59,6 @@ class HomeMoviesAdapter(
         private fun navigateToMovieDetails(movie: MovieModelData) {
             featureRouter.start(activity, OpenMovieDetailsAction) {
                 putString(MOVIE_ID_KEY, movie.id)
-                putString(MOVIE_IMAGE_KEY, movie.image)
             }
         }
     }

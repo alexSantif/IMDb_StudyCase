@@ -10,7 +10,7 @@ class MovieDetailsActivity : BaseActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.base_container, MovieDetailsFragment.newInstance())
             .setReorderingAllowed(true)
-            .addToBackStack("home")
+            .addToBackStack(FRAGMENT_TAG)
             .commit()
     }
 
@@ -28,5 +28,10 @@ class MovieDetailsActivity : BaseActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+
+        private const val FRAGMENT_TAG = "movie_details"
     }
 }

@@ -2,10 +2,13 @@
 <resources>
 
     <dimen name="zero_grid">0dp</dimen>
+    <dimen name="minimum_grid">1dp</dimen>
     <dimen name="half_grid">4dp</dimen>
     <dimen name="base_grid">8dp</dimen>
     <dimen name="double_grid">16dp</dimen>
     <dimen name="triple_grid">24dp</dimen>
 
-    <dimen name="text_size_H1">16sp</dimen>
+    <dimen name="text_size_H1">22sp</dimen>
+    <dimen name="text_size_H3">18sp</dimen>
+    <dimen name="text_size_H4">16sp</dimen>
 </resources>

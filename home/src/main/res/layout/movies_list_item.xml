@@ -28,6 +28,6 @@
         android:layout_marginEnd="@dimen/double_grid"
         android:fontFamily="@font/poppins"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size_H1"
+        android:textSize="@dimen/text_size_H4"
         tools:text="Titulo filme" />
 </LinearLayout>

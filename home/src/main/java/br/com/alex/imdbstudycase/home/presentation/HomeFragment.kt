@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.alex.imdbstudycase.home.R
+import br.com.alex.imdbstudycase.home.data.model.MovieModelData
 import br.com.alex.imdbstudycase.home.databinding.FragmentHomeBinding
 import br.com.alex.imdbstudycase.home.presentation.adapter.HomeMoviesAdapter
 import br.com.alex.imdbstudycase.router.FeatureRouter
@@ -25,6 +26,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeMoviesAdapter: HomeMoviesAdapter
 
+    private var bestMoviesItems: List<MovieModelData> = listOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,53 +39,27 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
 
-        binding.recyclerviewBestMovies.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            addItemDecoration(DividerItemDecoration(requireContext(),
-                DividerItemDecoration.HORIZONTAL))
-            addItemDecoration(DividerItemDecoration(requireContext(),
-                DividerItemDecoration.VERTICAL))
-        }
+        setHomeMoviesList()
+        getBestMovies()
+        openFavorites()
+        setSearchViewActions()
+    }
 
-        binding.recyclerviewBestMovies.setItemViewType { _, _ ->
-            return@setItemViewType R.layout.shimmer_placeholder_layout
-        }
-        binding.recyclerviewBestMovies.showShimmer()
-
-        homeViewModel.getMovies()
-        homeViewModel.movies.observe(viewLifecycleOwner, { movies ->
-            movies?.let { items ->
-                homeMoviesAdapter =
-                    HomeMoviesAdapter(requireActivity(), items, featureRouter)
-                binding.recyclerviewBestMovies.adapter = homeMoviesAdapter
-                binding.recyclerviewBestMovies.hideShimmer()
-            }
-        })
-
-        binding.buttonFavorites.setOnClickListener {
-//            featureRouter.start(requireActivity(), OpenFavoritesAction)
-        }
-
+    private fun setSearchViewActions() {
         binding.searchViewHome.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(text: String?): Boolean {
                 binding.searchViewHome.clearFocus()
-                binding.recyclerviewBestMovies.showShimmer()
-                homeViewModel.getSearchMovie(text)
-                homeViewModel.searchMovie.observe(viewLifecycleOwner, { movie ->
-                    movie?.let { movies ->
-                        homeMoviesAdapter =
-                            HomeMoviesAdapter(requireActivity(), movies, featureRouter)
-                        binding.recyclerviewBestMovies.adapter = homeMoviesAdapter
-                        binding.recyclerviewBestMovies.hideShimmer()
-                    }
-                })
+                binding.recyclerviewHomeMovies.showShimmer()
+                getSearchedMovie(text)
                 return false
             }
 
-            override fun onQueryTextChange(p0: String?): Boolean {
+            override fun onQueryTextChange(text: String?): Boolean {
+                if (text.isNullOrEmpty()) {
+                    showHomeMoviesList(bestMoviesItems)
+                }
                 return false
             }
-
         })
 
         binding.searchViewHome.setOnClickListener {
@@ -90,9 +67,63 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun getSearchedMovie(text: String?) {
+        homeViewModel.getSearchMovie(text)
+        homeViewModel.searchMovie.observe(viewLifecycleOwner, { movies ->
+            movies?.let { movies ->
+                showHomeMoviesList(movies)
+            }
+        })
+    }
+
+    private fun getBestMovies() {
+        homeViewModel.getMovies()
+        homeViewModel.movies.observe(viewLifecycleOwner, { movies ->
+            movies?.let { movies ->
+                bestMoviesItems = movies
+                showHomeMoviesList(movies)
+            }
+        })
+    }
+
+    private fun showHomeMoviesList(items: List<MovieModelData>) {
+        homeMoviesAdapter =
+            HomeMoviesAdapter(requireActivity(), items, featureRouter)
+        binding.recyclerviewHomeMovies.adapter = homeMoviesAdapter
+        binding.recyclerviewHomeMovies.hideShimmer()
+    }
+
+    private fun setHomeMoviesList() {
+        binding.recyclerviewHomeMovies.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.HORIZONTAL
+                )
+            )
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+        }
+
+        binding.recyclerviewHomeMovies.setItemViewType { _, _ ->
+            return@setItemViewType R.layout.shimmer_placeholder_layout
+        }
+        binding.recyclerviewHomeMovies.showShimmer()
+    }
+
+    private fun openFavorites() {
+        binding.buttonFavorites.setOnClickListener {
+            //            featureRouter.start(requireActivity(), OpenFavoritesAction)
+        }
+    }
+
     companion object {
 
         const val MOVIE_ID_KEY = "movie_id"
-        const val MOVIE_IMAGE_KEY = "movie_image"
     }
 }

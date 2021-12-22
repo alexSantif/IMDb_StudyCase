@@ -21,18 +21,9 @@ class HomeViewModel(private val useCase: HomeUseCase) : ViewModel() {
 
     fun getMovies() {
         viewModelScope.launch {
-//            when (val moviesResult = useCase.getMovies()) {
-//                is AppResult.Success -> {
-//                    movies.value = moviesResult.successData
-//                    showError.value = null
-//                }
-//                is AppResult.Error -> showError.value = moviesResult.exception.message
-//                else -> {}
-//            }
             val moviesResult = useCase.getMovies()
             moviesResult?.data?.let {
                 movies.value = it
-                showError.value = null
             } ?: let {
                 moviesResult?.error?.let { error ->
                     showError.value = error
@@ -43,18 +34,9 @@ class HomeViewModel(private val useCase: HomeUseCase) : ViewModel() {
 
     fun getSearchMovie(text: String?) {
         viewModelScope.launch {
-//            when (val searchMovieResult = useCase.getSearchMovie(text)) {
-//                is AppResult.Success -> {
-//                    searchMovie.value = searchMovieResult.successData
-//                    showError.value = null
-//                }
-//                is AppResult.Error -> showError.value = searchMovieResult.exception.message
-//                else -> {}
-//            }
             val moviesResult = useCase.getSearchMovie(text)
             moviesResult?.data?.let {
-                movies.value = it
-                showError.value = null
+                searchMovie.value = it
             } ?: let {
                 moviesResult?.error?.let { error ->
                     showError.value = error

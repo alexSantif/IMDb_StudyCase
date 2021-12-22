@@ -9,11 +9,16 @@ class HomeActivity : BaseActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.base_container, HomeFragment())
             .setReorderingAllowed(true)
-            .addToBackStack("home")
+            .addToBackStack(FRAGMENT_TAG)
             .commit()
     }
 
     override fun configureToolbar() {
         title = getString(R.string.home_screen_name)
+    }
+
+    companion object {
+
+        private const val FRAGMENT_TAG = "home"
     }
 }
