@@ -7,7 +7,7 @@ class HomeActivity : BaseActivity() {
 
     override fun launchFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.base_container, HomeFragment.newInstance())
+            .replace(R.id.base_container, HomeFragment())
             .setReorderingAllowed(true)
             .addToBackStack("home")
             .commit()

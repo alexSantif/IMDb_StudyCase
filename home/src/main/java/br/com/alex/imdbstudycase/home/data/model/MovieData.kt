@@ -2,7 +2,7 @@ package br.com.alex.imdbstudycase.home.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Movie(
+data class MovieData(
 
     @SerializedName("id") val id: String? = null,
     @SerializedName("rank") val rank: String? = null,

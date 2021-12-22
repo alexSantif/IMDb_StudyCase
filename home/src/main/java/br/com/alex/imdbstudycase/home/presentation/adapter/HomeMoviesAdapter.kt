@@ -9,7 +9,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alex.imdbstudycase.home.R
-import br.com.alex.imdbstudycase.home.data.model.Movie
+import br.com.alex.imdbstudycase.home.data.model.MovieData
+import br.com.alex.imdbstudycase.home.data.model.MovieModelData
 import br.com.alex.imdbstudycase.home.data.model.SearchData
 import br.com.alex.imdbstudycase.home.presentation.HomeFragment.Companion.MOVIE_ID_KEY
 import br.com.alex.imdbstudycase.home.presentation.HomeFragment.Companion.MOVIE_IMAGE_KEY
@@ -19,7 +20,7 @@ import com.bumptech.glide.Glide
 
 class HomeMoviesAdapter(
     private val activity: Activity,
-    private val movies: List<Any>,
+    private val movies: List<MovieModelData>,
     private val featureRouter: FeatureRouter
 ) : RecyclerView.Adapter<HomeMoviesAdapter.ViewHolder>() {
 
@@ -42,47 +43,24 @@ class HomeMoviesAdapter(
         private val containerMovieListItem: LinearLayout =
             view.findViewById(R.id.container_movie_list_item)
 
-        fun bind(movieDetails: Any) {
-            if (movieDetails is Movie) {
-                val movie = movieDetails as Movie
-                Glide
-                    .with(activity)
-                    .load(movie.image)
-                    .placeholder(R.color.shimmer_placeholder_color)
-                    .into(imageViewMovieBanner)
+        fun bind(movie: MovieModelData) {
+            Glide
+                .with(activity)
+                .load(movie.image)
+                .placeholder(R.color.shimmer_placeholder_color)
+                .into(imageViewMovieBanner)
 
-                textViewMovieTitle.text = movie.title
+            textViewMovieTitle.text = movie.title
 
-                containerMovieListItem.setOnClickListener {
-                    navigateToMovieDetails(movie)
-                }
-            } else if (movieDetails is SearchData) {
-                val movie = movieDetails as SearchData
-                Glide
-                    .with(activity)
-                    .load(movie.image)
-                    .placeholder(R.color.shimmer_placeholder_color)
-                    .into(imageViewMovieBanner)
-
-                textViewMovieTitle.text = movie.title
-
-                containerMovieListItem.setOnClickListener {
-                    navigateToMovieDetails(movie)
-                }
+            containerMovieListItem.setOnClickListener {
+                navigateToMovieDetails(movie)
             }
         }
 
-        private fun navigateToMovieDetails(movie: Any) {
-            if (movie is Movie) {
-                featureRouter.start(activity, OpenMovieDetailsAction) {
-                    putString(MOVIE_ID_KEY, movie.id)
-                    putString(MOVIE_IMAGE_KEY, movie.image)
-                }
-            } else if (movie is SearchData) {
-                featureRouter.start(activity, OpenMovieDetailsAction) {
-                    putString(MOVIE_ID_KEY, movie.id)
-                    putString(MOVIE_IMAGE_KEY, movie.image)
-                }
+        private fun navigateToMovieDetails(movie: MovieModelData) {
+            featureRouter.start(activity, OpenMovieDetailsAction) {
+                putString(MOVIE_ID_KEY, movie.id)
+                putString(MOVIE_IMAGE_KEY, movie.image)
             }
         }
     }

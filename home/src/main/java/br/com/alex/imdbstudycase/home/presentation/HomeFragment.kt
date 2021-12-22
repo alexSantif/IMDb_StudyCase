@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
 
         homeViewModel.getMovies()
         homeViewModel.movies.observe(viewLifecycleOwner, { movies ->
-            movies?.items?.let { items ->
+            movies?.let { items ->
                 homeMoviesAdapter =
                     HomeMoviesAdapter(requireActivity(), items, featureRouter)
                 binding.recyclerviewBestMovies.adapter = homeMoviesAdapter
@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
                 binding.recyclerviewBestMovies.showShimmer()
                 homeViewModel.getSearchMovie(text)
                 homeViewModel.searchMovie.observe(viewLifecycleOwner, { movie ->
-                    movie?.results?.let { movies ->
+                    movie?.let { movies ->
                         homeMoviesAdapter =
                             HomeMoviesAdapter(requireActivity(), movies, featureRouter)
                         binding.recyclerviewBestMovies.adapter = homeMoviesAdapter
@@ -94,7 +94,5 @@ class HomeFragment : Fragment() {
 
         const val MOVIE_ID_KEY = "movie_id"
         const val MOVIE_IMAGE_KEY = "movie_image"
-
-        fun newInstance() = HomeFragment()
     }
 }
