@@ -37,6 +37,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Inception" />
 
+            <ProgressBar
+                android:id="@+id/circular_images_progress_bar"
+                android:layout_width="@dimen/progress_bar"
+                android:layout_height="@dimen/progress_bar"
+                android:indeterminate="true"
+                app:layout_constraintBottom_toBottomOf="@+id/viewpager_movie_images"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/viewpager_movie_images" />
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager_movie_images"
                 android:layout_width="@dimen/zero_grid"
@@ -44,6 +54,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textview_movie_title" />
+
+            <LinearLayout
+                android:id="@+id/linearlayout_movie_images_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/base_grid"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/viewpager_movie_images"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/button_favorite_movie"
@@ -241,7 +262,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerview_movie_cast"
-                            android:layout_width="@dimen/zero_grid"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -262,7 +283,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ProgressBar
-            android:id="@+id/circular_progress_bar"
+            android:id="@+id/circular_screen_progress_bar"
             android:layout_width="@dimen/progress_bar"
             android:layout_height="@dimen/progress_bar"
             android:indeterminate="true"

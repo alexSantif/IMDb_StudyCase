@@ -1,20 +1,21 @@
 package br.com.alex.imdbstudycase.moviedetails.presentation.adapter
 
 import android.app.Activity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import br.com.alex.imdbstudycase.moviedetails.R
-import br.com.alex.imdbstudycase.moviedetails.data.model.Actor
 import br.com.alex.imdbstudycase.moviedetails.data.model.Image
 import com.bumptech.glide.Glide
 
 class ImageSliderAdapter(
     private val activity: Activity,
-    private val movieImages: List<Image>
+    private val movieImages: MutableList<Image>,
+    private val viewpagerMovieImages: ViewPager2
 ) : RecyclerView.Adapter<ImageSliderAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,6 +27,10 @@ class ImageSliderAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(movieImages[position], activity)
+
+        if (position == movieImages.size - 2) {
+            viewpagerMovieImages.post(itemsRunnable)
+        }
     }
 
     override fun getItemCount(): Int = movieImages.size
@@ -40,5 +45,10 @@ class ImageSliderAdapter(
                 .placeholder(R.color.shimmer_placeholder_color)
                 .into(imageviewMovieImage)
         }
+    }
+
+    private val itemsRunnable = Runnable {
+        movieImages.addAll(movieImages)
+        notifyDataSetChanged()
     }
 }

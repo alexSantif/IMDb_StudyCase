@@ -17,13 +17,13 @@
 
     <TextView
         android:id="@+id/textview_cast_name"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/poppins"
+        android:gravity="center_horizontal"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         tools:text="Pessoa" />
