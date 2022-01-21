@@ -22,7 +22,7 @@ object MovieDetailsModule {
         }
 
         factory<MovieDetailsRepository> {
-            MovieDetailsRepositoryImpl(get())
+            MovieDetailsRepositoryImpl(get(), get())
         }
 
         fun providesApi(retrofit: Retrofit): MovieDetailsApi {

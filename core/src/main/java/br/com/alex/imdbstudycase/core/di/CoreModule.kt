@@ -1,7 +1,12 @@
 package br.com.alex.imdbstudycase.core.di
 
+import android.app.Application
+import androidx.room.Room
+import br.com.alex.imdbstudycase.core.data.db.MovieDao
+import br.com.alex.imdbstudycase.core.data.db.MovieDatabase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -42,5 +47,17 @@ object CoreModule {
             val baseUrl = "https://imdb-api.com/${Locale.getDefault().language}/API/"
             provideRetrofit(get(), baseUrl)
         }
+
+        fun provideDataBase(application: Application): MovieDatabase {
+            return Room.databaseBuilder(application, MovieDatabase::class.java, "movie_database")
+                .fallbackToDestructiveMigration()
+                .build()
+        }
+
+        fun provideDao(dataBase: MovieDatabase): MovieDao {
+            return dataBase.movieDao()
+        }
+        single { provideDataBase(androidApplication()) }
+        single { provideDao(get()) }
     }
 }

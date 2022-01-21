@@ -3,22 +3,20 @@ package br.com.alex.imdbstudycase.moviedetails.presentation
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
-import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import br.com.alex.imdbstudycase.core.data.db.MovieEntity
 import br.com.alex.imdbstudycase.moviedetails.R
 import br.com.alex.imdbstudycase.moviedetails.data.model.Image
 import br.com.alex.imdbstudycase.moviedetails.data.model.MovieDetails
@@ -26,7 +24,6 @@ import br.com.alex.imdbstudycase.moviedetails.databinding.FragmentMovieDetailsBi
 import br.com.alex.imdbstudycase.moviedetails.presentation.adapter.ImageSliderAdapter
 import br.com.alex.imdbstudycase.moviedetails.presentation.adapter.MovieCastAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.abs
 
 class MovieDetailsFragment : Fragment() {
 
@@ -35,11 +32,9 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var binding: FragmentMovieDetailsBinding
 
     private lateinit var movieCastAdapter: MovieCastAdapter
-    private val movieImagesIndicatorList: MutableList<ImageView> = mutableListOf()
     private val movieImagesHandler: Handler = Handler(Looper.getMainLooper())
-
-    private var indicatorPosition = 0
-    private var lastBannerPosition = -1
+    private var isMovieFavorite = false
+    private var movieEntity: MovieEntity? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +52,58 @@ class MovieDetailsFragment : Fragment() {
         getMovieDetails(movieId)
         getMovieImages(movieId)
         setCardViews()
+        validateIsMovieFavorite(movieId)
+
+        binding.buttonFavoriteMovie.setOnClickListener {
+            if (isMovieFavorite) {
+                val favoriteImageView = it as ImageView
+                favoriteImageView.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        android.R.color.darker_gray
+                    ), android.graphics.PorterDuff.Mode.SRC_IN
+                )
+                movieDetailsViewModel.deleteMovie(movieEntity)
+            } else {
+                val favoriteImageView = it as ImageView
+                favoriteImageView.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        android.R.color.holo_red_dark
+                    ), android.graphics.PorterDuff.Mode.SRC_IN
+                )
+                val movieEntityTesting = MovieEntity(
+                    movieId = movieId!!,
+                    image = "",
+                    title = "testando"
+                )
+                movieDetailsViewModel.addMovie(movieEntityTesting)
+            }
+        }
+    }
+
+    private fun validateIsMovieFavorite(movieId: String?) {
+        movieDetailsViewModel.validateIsMovieFavorite(movieId)
+        movieDetailsViewModel.favoriteMovie.observe(viewLifecycleOwner, { favoriteMovie ->
+            favoriteMovie?.let {
+                isMovieFavorite = true
+                movieEntity = it[0]
+                binding.buttonFavoriteMovie.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        android.R.color.holo_red_dark
+                    ), android.graphics.PorterDuff.Mode.SRC_IN
+                )
+            } ?: let {
+                isMovieFavorite = false
+                binding.buttonFavoriteMovie.setColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        android.R.color.darker_gray
+                    ), android.graphics.PorterDuff.Mode.SRC_IN
+                )
+            }
+        })
     }
 
     private fun setCardViews() {
@@ -102,8 +149,13 @@ class MovieDetailsFragment : Fragment() {
         movieDetailsViewModel.movieImages.observe(viewLifecycleOwner, { movieImages ->
             movieImages?.items?.let { items ->
                 binding.circularImagesProgressBar.visibility = GONE
-                val movieImagesList = items.subList(IMAGES_INITIAL_INDEX, IMAGES_FINAL_INDEX)
-                setMovieImagesSlider(movieImagesList)
+                if (items.size >= IMAGES_FINAL_INDEX) {
+                    val movieImagesList = items.subList(IMAGES_INITIAL_INDEX, IMAGES_FINAL_INDEX)
+                    setMovieImagesSlider(movieImagesList)
+                } else {
+                    val movieImagesList = items.subList(IMAGES_INITIAL_INDEX, items.size)
+                    setMovieImagesSlider(movieImagesList)
+                }
             }
         })
     }

@@ -9,6 +9,7 @@
     <dimen name="triple_grid">24dp</dimen>
 
     <dimen name="text_size_H1">22sp</dimen>
+    <dimen name="text_size_H2">20sp</dimen>
     <dimen name="text_size_H3">18sp</dimen>
     <dimen name="text_size_H4">16sp</dimen>
 </resources>

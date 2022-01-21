@@ -8,7 +8,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
-        setSupportActionBar(findViewById(R.id.my_toolbar))
+        setSupportActionBar(findViewById(R.id.custom_toolbar))
 
         launchFragment()
         configureToolbar()
