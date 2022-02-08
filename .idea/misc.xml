@@ -5,9 +5,14 @@
       <map>
         <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/app/src/main/res/layout/activity_splash.xml" value="0.19882246376811594" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/app/src/main/res/layout/fragment_splash.xml" value="0.19882246376811594" />
+        <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/core/src/main/res/drawable/app_icon.xml" value="0.2203125" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/core/src/main/res/drawable/circular_loading.xml" value="0.2203125" />
+        <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/core/src/main/res/drawable/error_button_background.xml" value="0.2203125" />
+        <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/core/src/main/res/drawable/ic_launcher_background.xml" value="0.2203125" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/core/src/main/res/layout/activity_base.xml" value="0.18659420289855072" />
+        <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/core/src/main/res/layout/error_view.xml" value="0.1408514492753623" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/core/src/main/res/layout/loading_view.xml" value="0.18070652173913043" />
+        <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/core/src/main/res/layout/no_connection_view.xml" value="0.1408514492753623" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/favorites/src/main/res/drawable/ic_favorite.xml" value="0.2203125" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/favorites/src/main/res/layout/activity_favorites.xml" value="0.17753623188405798" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/IMDbStudyCase/favorites/src/main/res/layout/favorites_list_item.xml" value="0.16802536231884058" />

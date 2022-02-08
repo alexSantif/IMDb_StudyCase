@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">IMDb Study Case</string>
+    <string name="movies_list_error_text">Error loading movies list</string>
+    <string name="movies_list_error_button_text">Try again</string>
 </resources>
