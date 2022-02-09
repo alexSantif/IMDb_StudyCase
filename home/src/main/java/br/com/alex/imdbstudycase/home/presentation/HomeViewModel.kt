@@ -43,7 +43,7 @@ class HomeViewModel(private val useCase: HomeUseCase) : ViewModel() {
         }
     }
 
-    fun eraseMovieSearch() {
+    fun clearMovieSearchResult() {
         searchMovie.value = null
     }
 }

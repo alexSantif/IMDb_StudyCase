@@ -14,10 +14,10 @@ class HomeUseCase(private val repository: HomeRepository) {
             is AppResult.Success -> {
                 mapResponse(moviesResult.successData)
             }
-            is AppResult.Error -> mapError(moviesResult.exception.message)
-            else -> {
-                null
+            is AppResult.Error -> {
+                mapError(moviesResult.exception.message)
             }
+            else -> null
         }
     }
 
@@ -26,10 +26,10 @@ class HomeUseCase(private val repository: HomeRepository) {
             is AppResult.Success -> {
                 mapResponse(moviesResult.successData)
             }
-            is AppResult.Error -> mapError(moviesResult.exception.message)
-            else -> {
-                null
+            is AppResult.Error -> {
+                mapError(moviesResult.exception.message)
             }
+            else -> null
         }
     }
 

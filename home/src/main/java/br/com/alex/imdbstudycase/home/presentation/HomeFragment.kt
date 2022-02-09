@@ -1,9 +1,5 @@
 package br.com.alex.imdbstudycase.home.presentation
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +17,8 @@ import br.com.alex.imdbstudycase.home.data.model.MovieModelData
 import br.com.alex.imdbstudycase.home.databinding.FragmentHomeBinding
 import br.com.alex.imdbstudycase.home.presentation.adapter.HomeMoviesAdapter
 import br.com.alex.imdbstudycase.router.FeatureRouter
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
@@ -77,7 +73,7 @@ class HomeFragment : Fragment() {
                 if (text.isNullOrEmpty()) {
                     binding.textviewNoContentMessage.visibility = GONE
                     showHomeMoviesList(bestMoviesItems)
-                    homeViewModel.eraseMovieSearch()
+                    homeViewModel.clearMovieSearchResult()
                 }
                 return false
             }
@@ -89,7 +85,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getSearchedMovie(text: String?) {
-        if (checkForInternet(requireContext())) {
+//        if (checkForInternet(requireContext())) {
             homeViewModel.getSearchMovie(text)
             homeViewModel.searchMovie.observe(viewLifecycleOwner, { data ->
                 data?.data?.let { movies ->
@@ -101,14 +97,14 @@ class HomeFragment : Fragment() {
                     }
                 }
             })
-        } else {
-            showErrorScreen("Sem conexão com a Internet")
-            query = "search_movies"
-        }
+//        } else {
+//            showErrorScreen("Sem conexão com a Internet")
+//            query = "search_movies"
+//        }
     }
 
     private fun getBestMovies() {
-        if (checkForInternet(requireContext())) {
+//        if (checkForInternet(requireContext())) {
             homeViewModel.getMovies()
             homeViewModel.movies.observe(viewLifecycleOwner, { data ->
                 data?.data?.let { movies ->
@@ -121,10 +117,10 @@ class HomeFragment : Fragment() {
                     }
                 }
             })
-        } else {
-            showErrorScreen("Sem conexão com a Internet")
-            query = "best_movies"
-        }
+//        } else {
+//            showErrorScreen("Sem conexão com a Internet")
+//            query = "best_movies"
+//        }
     }
 
     private fun showErrorScreen(errorMessage: String) {
@@ -198,24 +194,24 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun checkForInternet(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val network = connectivityManager.activeNetwork ?: return false
-            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
-
-            return when {
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                else -> false
-            }
-        } else {
-            @Suppress("DEPRECATION") val networkInfo =
-                connectivityManager.activeNetworkInfo ?: return false
-            @Suppress("DEPRECATION")
-            return networkInfo.isConnected
-        }
-    }
+//    private fun checkForInternet(context: Context): Boolean {
+//        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            val network = connectivityManager.activeNetwork ?: return false
+//            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+//
+//            return when {
+//                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+//                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+//                else -> false
+//            }
+//        } else {
+//            @Suppress("DEPRECATION") val networkInfo =
+//                connectivityManager.activeNetworkInfo ?: return false
+//            @Suppress("DEPRECATION")
+//            return networkInfo.isConnected
+//        }
+//    }
 
     companion object {
 

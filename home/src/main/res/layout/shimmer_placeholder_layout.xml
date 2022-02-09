@@ -8,14 +8,14 @@
 
     <ImageView
         android:id="@+id/shimmer_banner"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/movie_banner_width"
+        android:layout_height="@dimen/movie_banner_height"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/shimmer_placeholder" />
 
     <TextView
         android:id="@+id/shimmer_title"
-        android:layout_width="120dp"
+        android:layout_width="@dimen/movie_banner_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/base_grid"

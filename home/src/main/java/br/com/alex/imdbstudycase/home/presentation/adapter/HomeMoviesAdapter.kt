@@ -9,9 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alex.imdbstudycase.home.R
-import br.com.alex.imdbstudycase.home.data.model.MovieData
 import br.com.alex.imdbstudycase.home.data.model.MovieModelData
-import br.com.alex.imdbstudycase.home.data.model.SearchData
 import br.com.alex.imdbstudycase.home.presentation.HomeFragment.Companion.MOVIE_ID_KEY
 import br.com.alex.imdbstudycase.router.FeatureRouter
 import br.com.alex.imdbstudycase.router.actions.OpenMovieDetailsAction

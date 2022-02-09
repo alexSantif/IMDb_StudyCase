@@ -1,4 +1,7 @@
 <resources>
 
     <string name="home_screen_name">Melhores filmes</string>
+    <string name="home_screen_query_hint">Título do filme</string>
+    <string name="favorite_button_content_description">Favoritos</string>
+    <string name="empty_search_list_message">Não foram encontrados resultados</string>
 </resources>

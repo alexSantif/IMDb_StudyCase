@@ -17,8 +17,8 @@ interface HomeApi {
 
     companion object {
 
-        private const val POPULAR_MOVIES = "MostPopularMovies/"
-        private const val SEARCH_MOVIE = "SearchMovie/"
+        private const val POPULAR_MOVIES = "mostpopularmovies/"
+        private const val SEARCH_MOVIE = "searchmovie/"
         private const val SEARCH_TEXT = "text"
     }
 }
